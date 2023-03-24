@@ -1,0 +1,291 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Node.js with TypeORM",
+      "description": "Swagger dökümantasyonu denemesi",
+      "license": {
+        "name": "Aykut Harmancı",
+        "url": "https://instagram.com/aykuthrmnc"
+      }
+    },
+    "paths": {
+      "/users": {
+        "get": {
+          "tags": [
+            "Users"
+          ],
+          "summary": "Bütün kullanıcıları getirir.",
+          "description": "Açıklama kısmı",
+          "operationId": "getUsers",
+          "responses": {
+            "200": {
+              "description": "Başarılı"
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "Users"
+          ],
+          "summary": "Yeni kullanıcı oluşturur.",
+          "description": "Açıklama kısmı",
+          "operationId": "getUser",
+          "requestBody": {
+            "description": "Yeni kullanıcı eklemek için gerekli istek",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "Başarılı"
+            },
+            "400": {
+              "description": "Hatalı veri gönderildi."
+            }
+          }
+        },
+        "put": {
+          "tags": [
+            "Users"
+          ],
+          "summary": "Belirli kullanıcı günceller",
+          "description": "Açıklama kısmı",
+          "operationId": "updateUser",
+          "requestBody": {
+            "description": "Update an existent pet in the store",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                },
+                "examples": {
+                  "deneme1": {
+                    "value": {
+                      "firstName": "a",
+                      "lastName": "a",
+                      "password": "a",
+                      "email": "a",
+                      "phoneNumber": "a"
+                    }
+                  },
+                  "deneme2": {
+                    "value": {
+                      "firstName": "b",
+                      "lastName": "b",
+                      "password": "b",
+                      "email": "b",
+                      "phoneNumber": "b"
+                    }
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                },
+                "application/xml": {
+                  "schema": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Invalid ID supplied"
+            },
+            "404": {
+              "description": "Pet not found"
+            },
+            "405": {
+              "description": "Validation exception"
+            }
+          },
+          "security": [
+            {
+              "petstore_auth": [
+                "write:pets",
+                "read:pets"
+              ]
+            }
+          ]
+        },
+        "delete": {
+          "tags": [
+            "Users"
+          ],
+          "summary": "Belirli kullanıcıyı siler.",
+          "description": "Açıklama kısmı",
+          "operationId": "deleteUser",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "query",
+              "description": "Kullanıcıyı silmek için Id gereklidir.",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "examples": {
+                "First": {
+                  "value": 1,
+                  "summary": "Birinci kullanıcı"
+                },
+                "Second": {
+                  "value": 2,
+                  "summary": "İkinci kullanıcı"
+                }
+              }
+            }
+          ],
+          "responses": {
+            "400": {
+              "description": "Yanlış değer"
+            },
+            "404": {
+              "description": "Kullanıcı bulunamadı"
+            }
+          },
+          "security": [
+            {
+              "api_key": []
+            }
+          ]
+        }
+      },
+      "/users/{id}": {
+        "get": {
+          "tags": [
+            "Users"
+          ],
+          "summary": "Id'si bulunan kullanıcıyı getirir.",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Kullanıcı Id'si",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Başarılı",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Başarısız"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "User": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "firstName": {
+              "type": "string"
+            },
+            "lastName": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "phoneNumber": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "requestBodies": {
+        "User": {
+          "description": "Pet object that needs to be added to the store",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "UserArray": {
+          "description": "List of user object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      },
+      "securitySchemes": {
+        "petstore_auth": {
+          "type": "oauth2",
+          "flows": {
+            "implicit": {
+              "authorizationUrl": "https://instagram.com/aykuthrmnc",
+              "scopes": {
+                "write:pets": "Yazma yetkisi",
+                "read:pets": "Okuma yetkisi"
+              }
+            }
+          }
+        },
+        "api_key": {
+          "type": "apiKey",
+          "name": "API Keyi",
+          "in": "header"
+        }
+      }
+    }
+  }
