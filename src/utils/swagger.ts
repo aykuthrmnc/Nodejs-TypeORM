@@ -2,6 +2,7 @@ import { Express, Request, Response } from "express";
 import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 import { version } from "../../package.json";
+import swaggerOutput from "../swagger_output.json";
 
 const options: swaggerJsdoc.Options = {
   definition: {
@@ -32,14 +33,14 @@ const options: swaggerJsdoc.Options = {
       },
     ],
   },
-  apis: ["./src/routes/*.ts", "./src/entity/*.ts"],
+  apis: ["./src/index.ts", "./src/entity/*.ts"],
 };
 
 const swaggerSpec = swaggerJsdoc(options);
 
 const swaggerDocs = (app: Express, port: number) => {
   // Swagger page
-  app.use("/docs", swaggerUi.serve, swaggerUi.setup(require("../swagger_output.json"))); // swaggerSpec
+  app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerOutput)); // swaggerSpec
   // Docs in JSON format
   app.get("/docs.json", (req: Request, res: Response) => {
     res.setHeader("Content-Type", "application/json");

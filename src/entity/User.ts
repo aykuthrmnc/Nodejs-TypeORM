@@ -1,27 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from "typeorm";
 import { RoleModel } from "./Role";
 
-/**
- * @swagger
- * components:
- *   schemas:
- *     User:
- *       type: object
- *       properties:
- *         id:
- *           type: integer
- *           description: ID of the user
- *         firstName:
- *           type: string
- *           description: Name of the user
- *         lastName:
- *           type: string
- *           description: Surname of the user
- *         email:
- *           type: string
- *           description: Email of the user
- */
-
 @Entity({ name: "User" })
 export class UserModel {
   @PrimaryGeneratedColumn("uuid")
