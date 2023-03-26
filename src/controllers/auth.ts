@@ -6,6 +6,21 @@ import { UserModel } from "../entity/User";
 import { RoleModel } from "../entity/Role";
 
 export const login = async (req: Request, res: Response) => {
+  /*  #swagger.tags = ['Auth']
+      #swagger.description = 'Kullanıcı girişi.'
+      #swagger.requestBody: {
+        required: true,
+        content: {
+          'application/json': {
+            schema: { $ref: '#/definitions/Login' },
+            examples: { 
+              User1: { $ref: "#/components/examples/User1" },
+              User2: { $ref: "#/components/examples/User2" }
+            }
+          }
+        }
+      }    
+  */
   const { username, password } = req.body;
 
   // Kullanıcı adı ve parola olmadan giriş işlemi yapılamaz
@@ -27,10 +42,13 @@ export const login = async (req: Request, res: Response) => {
 
   // JWT oluşturma ve yanıt olarak gönderme
   const token = jwt.sign({ id: user.Id, username: user.Username }, process.env.TOKEN_KEY, { expiresIn: "1h" });
-  res.header("Authorization", token).send("Giriş başarılı.");
+  res.cookie("Authorization", token).send("Giriş başarılı.");
+  // res.header("Authorization", token).send("Giriş başarılı.");
 };
 
 export const register = async (req: Request, res: Response) => {
+  /*  #swagger.tags = ['Auth']
+      #swagger.description = 'Kullanıcı kaydı.' */
   const { Username, Password, FirstName, LastName, PhoneNumber, Email } = req.body;
 
   // Kullanıcı adı ve parola olmadan kayıt işlemi yapılamaz

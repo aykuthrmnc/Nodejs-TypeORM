@@ -3,6 +3,13 @@ import { Request, Response } from "express";
 import { UserModel } from "../entity/User";
 
 export const getUsers = async (req: Request, res: Response) => {
+  /*  
+    #swagger.tags = ['User']
+    #swagger.description = 'Kullanıcıları listeler.'
+    #swagger.security = [{
+      "api_key": []
+    }]
+  */
   const users = await db.getRepository(UserModel).find();
   res.json(users);
 };
@@ -28,15 +35,34 @@ export const postUser = async (req: Request, res: Response) => {
 };
 
 export const putUser = async (req: Request, res: Response) => {
+  /*  
+    #swagger.tags = ['User']
+    #swagger.description = 'Kullanıcı bilgilerini günceller.'
+    #swagger.parameters['id'] = { description: 'ID gereklidir.' }
+    #swagger.security = [{
+      "api_key": []
+    }]
+  */
   const user = await db.getRepository(UserModel).findOneBy({
     Id: req.params.id,
   });
-  db.getRepository(UserModel).merge(user, req.body);
-  const results = await db.getRepository(UserModel).save(user);
-  return res.send(results);
+  // db.getRepository(UserModel).merge(user, req.body);
+  // const results = await db.getRepository(UserModel).save(user);
+  /* #swagger.responses[200] = { 
+      schema: { "$ref": "#/definitions/UpdateUser" },
+      description: "User registered successfully." } */
+  return res.status(200).send(user);
 };
 
 export const deleteUser = async (req: Request, res: Response) => {
+  /*  
+    #swagger.tags = ['User']
+    #swagger.description = 'Kullanıcıyı siler.'
+    #swagger.parameters['id'] = { description: 'ID gereklidir.' }
+    #swagger.security = [{
+      "api_key": []
+    }]
+  */
   const results = await db.getRepository(UserModel).delete(req.params.id);
   return res.send(results);
 };

@@ -1,87 +1,76 @@
 {
-  "0": ".",
-  "1": "/",
-  "2": "s",
-  "3": "r",
-  "4": "c",
-  "5": "/",
-  "6": "r",
-  "7": "o",
-  "8": "u",
-  "9": "t",
-  "10": "e",
-  "11": "s",
-  "swagger": "2.0",
+  "openapi": "3.0.0",
   "info": {
-    "version": "1.0.0",
-    "title": "REST API",
-    "description": ""
+    "title": "Nodejs with TypeORM",
+    "description": "My API documentation",
+    "contact": {
+      "name": "Aykut Harmancı"
+    },
+    "license": {
+      "name": "Aykut Harmancı",
+      "url": "https://instagram.com/aykuthrmnc"
+    },
+    "version": "1.0.0"
   },
-  "host": "localhost:3000",
-  "basePath": "/",
-  "schemes": [
-    "http"
+  "servers": [
+    {
+      "url": "http://localhost:3000/",
+      "description": "local server"
+    },
+    {
+      "url": "http://localhost:5000/",
+      "description": "the other server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "User",
+      "description": "User endpoint"
+    },
+    {
+      "name": "Auth"
+    }
   ],
   "paths": {
     "/login": {
       "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "username": {
-                  "example": "any"
-                },
-                "password": {
-                  "example": "any"
-                }
-              }
-            }
-          }
+        "tags": [
+          "Auth"
         ],
+        "description": "Kullanıcı girişi.",
+        "parameters": [],
         "responses": {
           "400": {
             "description": "Bad Request"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Login"
+              },
+              "examples": {
+                "User1": {
+                  "$ref": "#/components/examples/User1"
+                },
+                "User2": {
+                  "$ref": "#/components/examples/User2"
+                }
+              }
+            }
           }
         }
       }
     },
     "/register": {
       "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "Username": {
-                  "example": "any"
-                },
-                "Password": {
-                  "example": "any"
-                },
-                "FirstName": {
-                  "example": "any"
-                },
-                "LastName": {
-                  "example": "any"
-                },
-                "PhoneNumber": {
-                  "example": "any"
-                },
-                "Email": {
-                  "example": "any"
-                }
-              }
-            }
-          }
+        "tags": [
+          "Auth"
         ],
+        "description": "Kullanıcı kaydı.",
+        "parameters": [],
         "responses": {
           "200": {
             "description": "OK"
@@ -89,43 +78,62 @@
           "400": {
             "description": "Bad Request"
           }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Username": {
+                    "example": "any"
+                  },
+                  "Password": {
+                    "example": "any"
+                  },
+                  "FirstName": {
+                    "example": "any"
+                  },
+                  "LastName": {
+                    "example": "any"
+                  },
+                  "PhoneNumber": {
+                    "example": "any"
+                  },
+                  "Email": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
         }
       }
     },
     "/users/": {
       "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          }
+        "tags": [
+          "User"
         ],
+        "description": "Kullanıcıları listeler.",
+        "parameters": [],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
           }
-        }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
       },
       "post": {
         "description": "",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
           }
         }
       }
@@ -133,19 +141,10 @@
     "/users/withRole": {
       "get": {
         "description": "",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
           }
         }
       }
@@ -158,71 +157,173 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
           }
         }
       },
       "put": {
-        "description": "",
+        "tags": [
+          "User"
+        ],
+        "description": "Kullanıcı bilgilerini günceller.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID gereklidir."
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
+            "description": "User registered successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateUser"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateUser"
+                }
+              }
+            }
           }
-        }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
       },
       "delete": {
-        "description": "",
+        "tags": [
+          "User"
+        ],
+        "description": "Kullanıcıyı siler.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID gereklidir."
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
           }
-        }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
       }
     }
+  },
+  "components": {
+    "examples": {
+      "User1": {
+        "value": {
+          "username": "aykuthrmnc",
+          "password": "123456"
+        },
+        "summary": "Ana hesap"
+      },
+      "User2": {
+        "value": {
+          "username": "aykuthrmncc",
+          "password": "123456"
+        },
+        "summary": "Yan hesap"
+      }
+    },
+    "schemas": {
+      "Login": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "example": ""
+          },
+          "password": {
+            "type": "string",
+            "example": ""
+          }
+        },
+        "xml": {
+          "name": "Login"
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "firstname": {
+            "type": "string",
+            "example": ""
+          },
+          "lastname": {
+            "type": "string",
+            "example": ""
+          },
+          "username": {
+            "type": "string",
+            "example": ""
+          },
+          "password": {
+            "type": "string",
+            "example": ""
+          },
+          "email": {
+            "type": "string",
+            "example": ""
+          },
+          "phonenumber": {
+            "type": "string",
+            "example": ""
+          }
+        },
+        "xml": {
+          "name": "User"
+        }
+      },
+      "CreateUser": {
+        "xml": {
+          "name": "CreateUser"
+        },
+        "$ref": "#/components/schemas/User"
+      },
+      "UpdateUser": {
+        "xml": {
+          "name": "UpdateUser"
+        },
+        "$ref": "#/components/schemas/User"
+      }
+    },
+    "securitySchemes": {
+      "api_key": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "Authorization"
+      }
+    }
+  },
+  "security": {
+    "api_key": []
   }
 }

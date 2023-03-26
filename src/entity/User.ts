@@ -28,19 +28,3 @@ export class UserModel {
   @JoinColumn({ name: "role" })
   role: RoleModel;
 }
-
-/**
- * @swagger
- * /users:
- *   get:
- *     summary: Get all users
- *     responses:
- *       200:
- *         description: OK
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/User'
- */

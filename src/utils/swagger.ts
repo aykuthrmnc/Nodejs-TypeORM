@@ -8,32 +8,86 @@ const options: swaggerJsdoc.Options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "REST API Docs",
-      version,
+      title: "Nodejs with TypeORM",
       description: "My API documentation",
+      contact: {
+        name: "Aykut Harmancı",
+      },
+      license: {
+        name: "Aykut Harmancı",
+        url: "https://instagram.com/aykuthrmnc",
+      },
+      version,
     },
     servers: [
       {
         url: "http://localhost:3000",
-        description: "Development server",
+        description: "Development Server",
+      },
+    ],
+    tags: [
+      {
+        name: "User",
+        description: "User endpoint",
       },
     ],
     components: {
+      schemas: {
+        CreateUser: {
+          type: "object",
+          required: ["firstname", "lastname", "username", "password", "email", "phonenumber"],
+          properties: {
+            firstname: {
+              type: "string",
+              required: true,
+              default: "Aykut",
+            },
+            lastname: {
+              type: "string",
+              required: true,
+              default: "Harmancı",
+            },
+            username: {
+              type: "string",
+              required: true,
+              default: "aykuthrmnc",
+            },
+            password: {
+              type: "string",
+              required: true,
+              default: "123456",
+            },
+            email: {
+              type: "string",
+              required: true,
+              default: "aykuthrmnc@gmail.com",
+            },
+            phonenumber: {
+              type: "string",
+              required: true,
+              default: "123456",
+            },
+          },
+        },
+      },
       securitySchemas: {
+        api_key: {
+          type: "apiKey",
+          name: "Authorization",
+          in: "header",
+        },
         bearerAuth: {
           type: "http",
           scheme: "bearer",
           bearerFormat: "JWT",
         },
       },
-    },
-    security: [
-      {
-        bearerAuth: [],
+      security: {
+        api_key: [],
       },
-    ],
+    },
   },
-  apis: ["./src/index.ts", "./src/entity/*.ts"],
+  apis: ["./src/routes/*.ts"],
 };
 
 const swaggerSpec = swaggerJsdoc(options);
