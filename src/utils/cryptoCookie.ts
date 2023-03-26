@@ -8,8 +8,13 @@ const encryptCookie = (value: any) => {
 
 // Cookie çözme fonksiyonu
 const decryptCookie = (value: any) => {
-  const decryptedValue = CryptoJS.AES.decrypt(value, process.env.COOKIE_KEY).toString(CryptoJS.enc.Utf8);
-  return decryptedValue;
+  try {
+    const decryptedValue = CryptoJS.AES.decrypt(value, process.env.COOKIE_KEY).toString(CryptoJS.enc.Utf8);
+    return decryptedValue;
+  } catch (error) {
+    console.log(error);
+    return;
+  }
 };
 
 export default {

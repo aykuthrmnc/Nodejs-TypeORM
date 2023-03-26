@@ -6,9 +6,6 @@ export const getUsers = async (req: Request, res: Response) => {
   /*  
     #swagger.tags = ['User']
     #swagger.description = 'Kullanıcıları listeler.'
-    #swagger.security = [{
-      "api_key": []
-    }]
   */
   const users = await db.getRepository(UserModel).find();
   res.json(users);
@@ -18,9 +15,6 @@ export const getUserWithRole = async (req: Request, res: Response) => {
   /*  
     #swagger.tags = ['User']
     #swagger.description = 'Kullanıcıları rolleriyle beraber listeler.'
-    #swagger.security = [{
-      "api_key": []
-    }]
   */
   const users = await db.getRepository(UserModel).find({
     relations: ["role"],
@@ -33,9 +27,6 @@ export const getUser = async (req: Request, res: Response) => {
     #swagger.tags = ['User']
     #swagger.description = 'Kullanıcı bilgisini getirir.'
     #swagger.parameters['id'] = { description: 'ID gereklidir.' }
-    #swagger.security = [{
-      "api_key": []
-    }]
   */
   const results = await db.getRepository(UserModel).findOneBy({
     Id: req.params.id,
@@ -48,9 +39,6 @@ export const postUser = async (req: Request, res: Response) => {
   /*  
     #swagger.tags = ['User']
     #swagger.description = 'Yeni kullanıcı ekler'
-    #swagger.security = [{
-      "api_key": []
-    }]
   */
   const user = db.getRepository(UserModel).create({ username, password, firstName, lastName, phoneNumber, email });
   const results = await db.getRepository(UserModel).save(user);
@@ -63,9 +51,6 @@ export const putUser = async (req: Request, res: Response) => {
     #swagger.tags = ['User']
     #swagger.description = 'Kullanıcı bilgilerini günceller.'
     #swagger.parameters['id'] = { description: 'ID gereklidir.' }
-    #swagger.security = [{
-      "api_key": []
-    }]
   */
   const user = await db.getRepository(UserModel).findOneBy({
     Id: req.params.id,
@@ -84,9 +69,6 @@ export const deleteUser = async (req: Request, res: Response) => {
     #swagger.tags = ['User']
     #swagger.description = 'Kullanıcıyı siler.'
     #swagger.parameters['id'] = { description: 'ID gereklidir.' }
-    #swagger.security = [{
-      "api_key": []
-    }]
   */
   const results = await db.getRepository(UserModel).delete(id);
   return res.send(results);

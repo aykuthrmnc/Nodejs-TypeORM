@@ -5,6 +5,9 @@ import { Request, Response } from "express";
 import { UserModel } from "../models/User";
 import { RoleModel } from "../models/Role";
 import cryptoCookie from "../utils/cryptoCookie";
+import { validationResult } from "express-validator";
+import { UploadedFile } from "express-fileupload";
+import slugify from "slugify";
 
 export const login = async (req: Request, res: Response) => {
   /*  #swagger.tags = ['Auth']
@@ -48,6 +51,10 @@ export const login = async (req: Request, res: Response) => {
 };
 
 export const register = async (req: Request, res: Response) => {
+  const errors = validationResult(req);
+  if (errors) {
+    return res.status(400).send(errors.array());
+  }
   /*  #swagger.tags = ['Auth']
       #swagger.description = 'Kullanıcı girişi.'
   */
@@ -84,4 +91,36 @@ export const register = async (req: Request, res: Response) => {
   const results = await db.getRepository(UserModel).save(createdUser);
 
   return res.send(results);
+};
+
+export const profile = async (req: Request, res: Response) => {
+  const errors = validationResult(req);
+  if (errors) {
+    return res.status(400).send(errors.array());
+  }
+  /*  #swagger.tags = ['Auth']
+      #swagger.description = 'Kullanıcı profili.'
+      #swagger.parameters['avatar'] = { in: 'formData', name: 'avatar', type: 'file' } 
+  */
+  // const { username, password, firstName, lastName, phoneNumber, email } = req.body;
+  // // Kullanıcı adı ve parola olmadan kayıt işlemi yapılamaz
+  // if (!username || !password) {
+  //   return res.status(400).send("Kullanıcı adı ve parola gereklidir.");
+  // }
+  const { username } = req.files;
+
+  // Dosya kaydetme işlemi
+  let avatar = req.files.avatar as UploadedFile;
+  let file = avatar.name.split(".");
+  let fileExtension = file.pop();
+  let fileName = file.join("");
+  let path = "public/upload/" + Date.now() + "-" + slugify(fileName, { lower: true, strict: true }) + "." + fileExtension;
+  avatar.mv(path, (err) => {
+    if (err) {
+      return res.status(400).send(err);
+    }
+    console.log("RESIM YUKLEME BASARILI");
+  });
+
+  return res.send("Başarılı.");
 };

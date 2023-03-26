@@ -5,6 +5,15 @@ const outputFile = "./src/swagger_output.json";
 const endpointsFiles = ["./src/index.ts"]; //, "./src/entity/User.ts"
 
 const options = {
+  openapi: null,          // Enable/Disable OpenAPI. By default is null
+  language: "en-US",      // Change response language. By default is 'en-US'
+  disableLogs: false,     // Enable/Disable logs. By default is false
+  autoHeaders: false,     // Enable/Disable automatic headers capture. By default is true
+  autoQuery: false,       // Enable/Disable automatic query capture. By default is true
+  autoBody: false,        // Enable/Disable automatic body capture. By default is true
+};
+
+const doc = {
   info: {
     title: "Nodejs with TypeORM",
     description: "My API documentation",
@@ -103,7 +112,7 @@ const options = {
   },
 };
 
-swaggerAutogen(outputFile, endpointsFiles, options);
+swaggerAutogen(outputFile, endpointsFiles, doc);
 
 // .then(() => {
 //   import("./src/index"); // Your project's root file

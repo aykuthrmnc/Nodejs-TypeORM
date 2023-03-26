@@ -77,8 +77,16 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -110,6 +118,31 @@
         }
       }
     },
+    "/profile": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "Kullanıcı profili.",
+        "parameters": [
+          {
+            "name": "avatar",
+            "in": "formData",
+            "schema": {
+              "type": "file"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
     "/users/": {
       "get": {
         "tags": [
@@ -120,6 +153,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "security": [
@@ -137,6 +173,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "security": [
@@ -185,6 +224,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "security": [
@@ -214,6 +256,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "security": [
@@ -253,6 +298,9 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "security": [
@@ -309,6 +357,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "security": [
