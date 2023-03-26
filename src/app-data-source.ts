@@ -1,6 +1,6 @@
-import { RoleModel } from "./entity/Role";
+import { RoleModel } from "./models/Role";
 import { DataSource } from "typeorm";
-import { UserModel } from "./entity/User";
+import { UserModel } from "./models/User";
 
 const AppDataSource = new DataSource({
   type: "mssql",

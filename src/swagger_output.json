@@ -69,7 +69,7 @@
         "tags": [
           "Auth"
         ],
-        "description": "Kullanıcı kaydı.",
+        "description": "Kullanıcı girişi.",
         "parameters": [],
         "responses": {
           "200": {
@@ -85,22 +85,22 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "Username": {
+                  "username": {
                     "example": "any"
                   },
-                  "Password": {
+                  "password": {
                     "example": "any"
                   },
-                  "FirstName": {
+                  "firstName": {
                     "example": "any"
                   },
-                  "LastName": {
+                  "lastName": {
                     "example": "any"
                   },
-                  "PhoneNumber": {
+                  "phoneNumber": {
                     "example": "any"
                   },
-                  "Email": {
+                  "email": {
                     "example": "any"
                   }
                 }
@@ -129,29 +129,77 @@
         ]
       },
       "post": {
-        "description": "",
+        "tags": [
+          "User"
+        ],
+        "description": "Yeni kullanıcı ekler",
         "parameters": [],
         "responses": {
           "200": {
             "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "example": "any"
+                  },
+                  "password": {
+                    "example": "any"
+                  },
+                  "firstName": {
+                    "example": "any"
+                  },
+                  "lastName": {
+                    "example": "any"
+                  },
+                  "phoneNumber": {
+                    "example": "any"
+                  },
+                  "email": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       }
     },
     "/users/withRole": {
       "get": {
-        "description": "",
+        "tags": [
+          "User"
+        ],
+        "description": "Kullanıcıları rolleriyle beraber listeler.",
         "parameters": [],
         "responses": {
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
       }
     },
     "/users/{id}": {
       "get": {
-        "description": "",
+        "tags": [
+          "User"
+        ],
+        "description": "Kullanıcı bilgisini getirir.",
         "parameters": [
           {
             "name": "id",
@@ -159,14 +207,20 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "ID gereklidir."
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
       },
       "put": {
         "tags": [
@@ -205,7 +259,36 @@
           {
             "api_key": []
           }
-        ]
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "example": "any"
+                  },
+                  "password": {
+                    "example": "any"
+                  },
+                  "firstName": {
+                    "example": "any"
+                  },
+                  "lastName": {
+                    "example": "any"
+                  },
+                  "email": {
+                    "example": "any"
+                  },
+                  "phoneNumber": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
       },
       "delete": {
         "tags": [
@@ -273,11 +356,11 @@
       "User": {
         "type": "object",
         "properties": {
-          "firstname": {
+          "firstName": {
             "type": "string",
             "example": ""
           },
-          "lastname": {
+          "lastName": {
             "type": "string",
             "example": ""
           },
@@ -293,7 +376,7 @@
             "type": "string",
             "example": ""
           },
-          "phonenumber": {
+          "phoneNumber": {
             "type": "string",
             "example": ""
           }
@@ -318,7 +401,7 @@
     "securitySchemes": {
       "api_key": {
         "type": "apiKey",
-        "in": "cookie",
+        "in": "header",
         "name": "Authorization"
       }
     }

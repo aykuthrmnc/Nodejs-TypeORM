@@ -55,7 +55,8 @@ const options = {
     // },
     api_key: {
       type: "apiKey",
-      in: "cookie",
+      in: "header",
+      // in: "cookie",
       name: "Authorization",
     },
   },
@@ -68,12 +69,12 @@ const options = {
       password: "",
     },
     User: {
-      firstname: "",
-      lastname: "",
+      firstName: "",
+      lastName: "",
       username: "",
       password: "",
       email: "",
-      phonenumber: "",
+      phoneNumber: "",
     },
     CreateUser: {
       $ref: "#/definitions/User",

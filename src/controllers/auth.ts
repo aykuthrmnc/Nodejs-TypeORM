@@ -2,8 +2,9 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import db from "../app-data-source";
 import { Request, Response } from "express";
-import { UserModel } from "../entity/User";
-import { RoleModel } from "../entity/Role";
+import { UserModel } from "../models/User";
+import { RoleModel } from "../models/Role";
+import cryptoCookie from "../utils/cryptoCookie";
 
 export const login = async (req: Request, res: Response) => {
   /*  #swagger.tags = ['Auth']
@@ -28,35 +29,36 @@ export const login = async (req: Request, res: Response) => {
     return res.status(400).send("Kullanıcı adı ve parola gereklidir.");
   }
 
-  const user = await db.getRepository(UserModel).findOneBy({ Username: username });
+  const user = await db.getRepository(UserModel).findOneBy({ username });
 
   if (!user) {
     return res.status(400).send("Kullanıcı adı veya parola yanlış.");
   }
 
   // Parola karşılaştırması
-  const passwordMatch = await bcrypt.compare(password, user.Password);
+  const passwordMatch = await bcrypt.compare(password, user.password);
   if (!passwordMatch) {
     return res.status(400).send("Kullanıcı adı veya parola yanlış.");
   }
 
   // JWT oluşturma ve yanıt olarak gönderme
-  const token = jwt.sign({ id: user.Id, username: user.Username }, process.env.TOKEN_KEY, { expiresIn: "1h" });
-  res.cookie("Authorization", token).send("Giriş başarılı.");
-  // res.header("Authorization", token).send("Giriş başarılı.");
+  const token = jwt.sign({ id: user.Id, username: user.username }, process.env.TOKEN_KEY, { expiresIn: "1h" });
+  res.header("Authorization", cryptoCookie.encryptCookie(token)).send("Giriş başarılı.");
+  // res.cookie("Authorization", cryptoCookie.encryptCookie(token), { maxAge: 900000, httpOnly: true }).send("Giriş başarılı.");
 };
 
 export const register = async (req: Request, res: Response) => {
   /*  #swagger.tags = ['Auth']
-      #swagger.description = 'Kullanıcı kaydı.' */
-  const { Username, Password, FirstName, LastName, PhoneNumber, Email } = req.body;
+      #swagger.description = 'Kullanıcı girişi.'
+  */
+  const { username, password, firstName, lastName, phoneNumber, email } = req.body;
 
   // Kullanıcı adı ve parola olmadan kayıt işlemi yapılamaz
-  if (!Username || !Password) {
+  if (!username || !password) {
     return res.status(400).send("Kullanıcı adı ve parola gereklidir.");
   }
 
-  const user = await db.getRepository(UserModel).findOneBy({ Username });
+  const user = await db.getRepository(UserModel).findOneBy([{ username }, { phoneNumber }, { email }]);
 
   // Kullanıcının daha önce kaydedilip kaydedilmediğini kontrol edilir
   if (user) {
@@ -65,17 +67,17 @@ export const register = async (req: Request, res: Response) => {
 
   // Şifre hashleme işlemini gerçekleştirin
   const PasswordSalt = await bcrypt.genSalt(10);
-  const PasswordHash = await bcrypt.hash(Password, PasswordSalt);
+  const PasswordHash = await bcrypt.hash(password, PasswordSalt);
 
-  const role = await db.getRepository(RoleModel).findOneBy({ Name: "Müşteri" });
+  const role = await db.getRepository(RoleModel).findOneBy({ name: "Müşteri" });
 
   const createdUser = db.getRepository(UserModel).create({
-    FirstName,
-    LastName,
-    Username,
-    Email,
-    Password: PasswordHash,
-    PhoneNumber,
+    firstName,
+    lastName,
+    username,
+    email,
+    password: PasswordHash,
+    phoneNumber,
     role: role,
   });
 
