@@ -124,21 +124,28 @@
           "Auth"
         ],
         "description": "Kullanıcı profili.",
-        "parameters": [
-          {
-            "name": "avatar",
-            "in": "formData",
-            "schema": {
-              "type": "file"
-            }
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "OK"
           },
           "400": {
             "description": "Bad Request"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "avatar": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
           }
         }
       }

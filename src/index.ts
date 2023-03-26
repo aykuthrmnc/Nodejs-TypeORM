@@ -7,6 +7,7 @@ import swaggerDocs from "./utils/swagger";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import { authMiddleware } from "./middleware/auth";
+import fileUpload from "express-fileupload";
 
 db.initialize()
   .then(() => console.log("Veri tabanı başlatıldı!"))
@@ -20,7 +21,7 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
-// app.use(fileUpload({ safeFileNames: true, preserveExtension: true }));
+app.use(fileUpload({ safeFileNames: true, preserveExtension: true }));
 app.use(express.static("public"));
 
 app.use("/", auth);

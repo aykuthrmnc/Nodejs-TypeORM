@@ -44,7 +44,7 @@ const router = Router();
  *      tags: [User]
  *      description: Returns all users
  *      responses:
- *          '200':
+ *          "200":
  *           description: A list of users.
  */
 router.get("/", getUsers);
@@ -55,7 +55,7 @@ router.get("/", getUsers);
  *      tags: [User]
  *      description: Returns all users with role
  *      responses:
- *          '200':
+ *          "200":
  *              description: A list of users.
  */
 router.get("/withRole", getUserWithRole);
@@ -73,11 +73,11 @@ router.get("/withRole", getUserWithRole);
  *          schema:
  *            type: string
  *      responses:
- *          '200':
+ *          "200":
  *              description: Kullanıcı bulundu.
- *          '404':
+ *          "404":
  *              description: Kullanıcı bulunamadı.
- *          '500':
+ *          "500":
  *              description: Sunucu hatası
  */
 router.get("/:id", getUser);
@@ -95,14 +95,14 @@ router.get("/:id", getUser);
  *         content:
  *             application/json:
  *                 schema:
- *                     $ref: '#/components/schemas/CreateUser'
+ *                     $ref: "#/components/schemas/CreateUser"
  *     responses:
  *         200:
  *             description: Kullanıcı oluşturuldu.
  *             content:
  *                 application/json:
  *                     schema:
- *                         $ref: '#/components/schemas/CreateUser'
+ *                         $ref: "#/components/schemas/CreateUser"
  *         500:
  *             description: Sunucu hatası
  */
@@ -126,7 +126,7 @@ router.post("/", postUser);
  *          content:
  *              application/json:
  *                  schema:
- *                      $ref: '#/components/schemas/UpdateUser'
+ *                      $ref: "#/components/schemas/UpdateUser"
  *                  examples:
  *                      deneme1:
  *                          value:
@@ -145,15 +145,15 @@ router.post("/", postUser);
  *                              email: b
  *                              phonenumber: b
  *      responses:
- *          '200':
+ *          "200":
  *              description: Kullanıcı güncellendi.
  *              content:
  *                  application/json:
  *                      schema:
- *                          $ref: '#/components/schemas/UpdateUser'
- *          '404':
+ *                          $ref: "#/components/schemas/UpdateUser"
+ *          "404":
  *              description: Kullanıcı bulunamadı.
- *          '500':
+ *          "500":
  *              description: Sunucu hatası
  *      security:
  *          - api_key: []
@@ -174,11 +174,11 @@ router.put("/:id", putUser);
  *          schema:
  *            type: string
  *      responses:
- *          '200':
+ *          "200":
  *              description: Kullanıcı silindi.
- *          '404':
+ *          "404":
  *              description: Kullanıcı bulunamadı.
- *          '500':
+ *          "500":
  *              description: Sunucu hatası
  *      security:
  *          - bearerAuth: []

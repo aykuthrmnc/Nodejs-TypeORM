@@ -25,8 +25,6 @@ export const profileValidation = [
   //   return true;
   // }),
   check("avatar").custom((value, { req }) => {
-    console.log(req);
-
     if (!req.files || Object.keys(req.files).length === 0 || !req.files.avatar) {
       throw new Error("Profil resmi yüklenmelidir.");
     }
