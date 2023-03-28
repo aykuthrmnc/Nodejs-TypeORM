@@ -95,7 +95,7 @@ export const register = async (req: Request, res: Response) => {
 };
 
 export const profile = async (req: Request, res: Response) => {
-  res.locals.formData = req.body;
+  // res.locals.formData = req.body;
 
   const errors = validationResult(req);
 

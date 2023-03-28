@@ -8,10 +8,12 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import { authMiddleware } from "./middleware/auth";
 import fileUpload from "express-fileupload";
+import { logger } from "./utils/logger";
+
 
 db.initialize()
   .then(() => console.log("Veri tabanı başlatıldı!"))
-  .catch((err) => console.error("Veri tabanı başlatma sırasında hata:", err));
+  .catch((err) => logger.error("Veri tabanı başlatma sırasında hata:", err));
 
 dotenv.config();
 
@@ -30,10 +32,14 @@ swaggerDocs(app, +port);
 app.use((req, res) => {
   res.status(404).send("Sayfa bulunamadı.");
 });
-// app.use((err, req, res, next) => {
-//   console.error(err.stack);
-//   res.status(500).send("Sunucu hatası");
-// });
+app.use((err, req, res, next) => {
+  logger.error(`${req.method} ${req.url} - ${err.message}`, {
+    timestamp: new Date(),
+    stack: err.stack,
+  });
+
+  res.status(500).send("Bir hata meydana geldi.");
+});
 
 app.listen(port, () => {
   console.log(`Uygulama http://localhost:${port} adresinde çalışıyor`);

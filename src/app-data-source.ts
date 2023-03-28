@@ -14,6 +14,7 @@ const AppDataSource = new DataSource({
   },
   database: "TypeORM",
   synchronize: true,
+  logger: "file",
   logging: true,
   entities: [UserModel, RoleModel],
   migrations: [],

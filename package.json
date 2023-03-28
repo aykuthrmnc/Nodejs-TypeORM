@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node swagger-autogen.ts && nodemon src/index.ts",
+    "start": "nodemon -e ts -w ./src src/index.ts",
     "swagger-autogen": "ts-node swagger-autogen.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -43,6 +43,7 @@
     "swagger-autogen": "^2.23.1",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^4.6.2",
-    "typeorm": "^0.3.12"
+    "typeorm": "^0.3.12",
+    "winston": "^3.8.2"
   }
 }
