@@ -22,7 +22,7 @@ const doc = {
     },
     license: {
       name: "Aykut Harmancı",
-      url: "https://instagram.com/aykuthrmnc",
+      url: "https://github.com/aykuthrmnc",
     },
     version,
   },
