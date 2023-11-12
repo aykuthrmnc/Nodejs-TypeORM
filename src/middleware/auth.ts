@@ -9,6 +9,7 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
       "api_key": []
     }]
   */
+
   const token = req.headers.authorization && cryptoCookie.decryptCookie(req.headers.authorization);
   // const token = req.cookies.Authorization && cryptoCookie.decryptCookie(req.cookies.Authorization);
 

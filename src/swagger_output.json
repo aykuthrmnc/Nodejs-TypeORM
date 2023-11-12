@@ -139,12 +139,102 @@
         }
       }
     },
-    "/users/{id}": {
+    "/users/": {
       "get": {
         "tags": [
           "User"
         ],
         "description": "Kullanıcıları listeler.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "description": "Yeni kullanıcı ekler",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "example": "any"
+                  },
+                  "password": {
+                    "example": "any"
+                  },
+                  "firstName": {
+                    "example": "any"
+                  },
+                  "lastName": {
+                    "example": "any"
+                  },
+                  "phoneNumber": {
+                    "example": "any"
+                  },
+                  "email": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/withRole": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "description": "Kullanıcıları rolleriyle beraber listeler.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "description": "Kullanıcı bilgisini getirir.",
         "parameters": [
           {
             "name": "id",
@@ -270,77 +360,6 @@
             "api_key": []
           }
         ]
-      }
-    },
-    "/users/withRole": {
-      "get": {
-        "tags": [
-          "User"
-        ],
-        "description": "Kullanıcıları rolleriyle beraber listeler.",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          }
-        },
-        "security": [
-          {
-            "api_key": []
-          }
-        ]
-      }
-    },
-    "/users/": {
-      "post": {
-        "tags": [
-          "User"
-        ],
-        "description": "Yeni kullanıcı ekler",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          }
-        },
-        "security": [
-          {
-            "api_key": []
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "username": {
-                    "example": "any"
-                  },
-                  "password": {
-                    "example": "any"
-                  },
-                  "firstName": {
-                    "example": "any"
-                  },
-                  "lastName": {
-                    "example": "any"
-                  },
-                  "phoneNumber": {
-                    "example": "any"
-                  },
-                  "email": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
-          }
-        }
       }
     },
     "/products/": {

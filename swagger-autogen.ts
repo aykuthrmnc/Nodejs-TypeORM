@@ -1,16 +1,17 @@
 import { version } from "./package.json";
-const swaggerAutogen = require("swagger-autogen")({ openapi: "3.0.0" });
+import swaggerAutogen from "swagger-autogen";
+// const swaggerAutogen = require("swagger-autogen")({ openapi: "3.0.0" });
 
 const outputFile = "./src/swagger_output.json";
 const endpointsFiles = ["./src/index.ts"]; //, "./src/entity/User.ts"
 
 const options = {
-  openapi: null,          // Enable/Disable OpenAPI. By default is null
-  language: "en-US",      // Change response language. By default is 'en-US'
-  disableLogs: false,     // Enable/Disable logs. By default is false
-  autoHeaders: false,     // Enable/Disable automatic headers capture. By default is true
-  autoQuery: false,       // Enable/Disable automatic query capture. By default is true
-  autoBody: false,        // Enable/Disable automatic body capture. By default is true
+  openapi: null, // Enable/Disable OpenAPI. By default is null
+  language: "en-US", // Change response language. By default is 'en-US'
+  disableLogs: false, // Enable/Disable logs. By default is false
+  autoHeaders: false, // Enable/Disable automatic headers capture. By default is true
+  autoQuery: false, // Enable/Disable automatic query capture. By default is true
+  autoBody: false, // Enable/Disable automatic body capture. By default is true
 };
 
 const doc = {
@@ -112,7 +113,7 @@ const doc = {
   },
 };
 
-swaggerAutogen(outputFile, endpointsFiles, doc);
+swaggerAutogen({ openapi: "3.0.0" })(outputFile, endpointsFiles, doc);
 
 // .then(() => {
 //   import("./src/index"); // Your project's root file

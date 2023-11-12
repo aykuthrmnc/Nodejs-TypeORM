@@ -1,8 +1,4 @@
-import { RoleModel } from "./models/Role";
 import { DataSource } from "typeorm";
-import { UserModel } from "./models/User";
-import { Category } from "./models/Category";
-import { Product } from "./models/Product";
 
 const AppDataSource = new DataSource({
   type: "mssql",
@@ -18,7 +14,7 @@ const AppDataSource = new DataSource({
   synchronize: false, // AUTO MIGRATION
   logger: "file",
   logging: false, // LOG FILE
-  entities: [UserModel, RoleModel, Category, Product],
+  entities: ["src/models/*.ts"], //[UserModel, RoleModel, Category, Product],
   migrations: [],
   subscribers: [],
 });

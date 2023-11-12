@@ -36,9 +36,11 @@ app.use("/", auth);
 app.use("/users", authMiddleware, user);
 app.use("/products", authMiddleware, product);
 swaggerDocs(app, +port);
+
 app.use((req, res) => {
   res.status(404).send("Sayfa bulunamadı.");
 });
+
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   logger.error(`${req.method} ${req.url} - ${err.message}`, {
     timestamp: new Date(),
