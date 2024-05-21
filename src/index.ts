@@ -1,4 +1,5 @@
 import dotenv from "dotenv";
+dotenv.config();
 import express, { NextFunction, Request, Response } from "express";
 import db from "./app-data-source";
 import auth from "./routes/auth";
@@ -12,17 +13,14 @@ import { authMiddleware } from "./middleware/auth";
 import fileUpload from "express-fileupload";
 import { logger } from "./utils/logger";
 // import * as middlewares from "./middleware/middlewares";
-import compression from 'compression'
+import compression from "compression";
 
 db.initialize()
   .then(() => console.log("Veri tabanı başlatıldı!"))
   .catch((err) => logger.error("Veri tabanı başlatma sırasında hata: ", err));
 
-dotenv.config();
-
 const app = express();
 const port = process.env.PORT || 3000;
-
 
 app.use(helmet());
 app.use(cors());
